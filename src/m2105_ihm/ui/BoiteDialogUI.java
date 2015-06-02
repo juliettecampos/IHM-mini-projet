@@ -13,7 +13,7 @@ import m2105_ihm.nf.GroupeContacts;
 
 /**
  *
- * @author laurillau
+ * @author juliette campos
  */
 public class BoiteDialogUI {
     /**

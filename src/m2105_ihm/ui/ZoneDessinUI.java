@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
 
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 /**
  * 

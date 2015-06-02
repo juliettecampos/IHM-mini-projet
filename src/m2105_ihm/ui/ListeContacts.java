@@ -22,7 +22,7 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultTreeCellRenderer;
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 public class ListeContacts extends javax.swing.JPanel  {
     /*
@@ -96,7 +96,6 @@ public class ListeContacts extends javax.swing.JPanel  {
          */
         listeContacts = new JTree(listeRacine);   
         listeContacts.setCellRenderer(new MyTreeCellRenderer());
-        
         listeContacts.addTreeSelectionListener(new TreeSelectionListener() {
             /**
              * Traite les évènements liés à une sélection dans la liste de contacts

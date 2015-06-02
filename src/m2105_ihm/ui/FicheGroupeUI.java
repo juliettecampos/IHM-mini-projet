@@ -23,7 +23,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints; 
 /*
  *
- * @author IUT2
+ * @author juliette campos
  */
 public class FicheGroupeUI extends javax.swing.JPanel {
     /*

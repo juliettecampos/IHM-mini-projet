@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 public class FicheContactUI extends JPanel {
 

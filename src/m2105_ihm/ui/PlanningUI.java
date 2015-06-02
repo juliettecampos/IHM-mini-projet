@@ -21,7 +21,7 @@ import m2105_ihm.nf.Evenement;
 
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 public class PlanningUI extends JPanel {
     /**
@@ -49,9 +49,11 @@ public class PlanningUI extends JPanel {
         /*
          * Fiche événement
          */        
+        
         ficheEvt = new FicheEvtUI(this);
-     
-        this.add(new javax.swing.JLabel("Evenements"));     
+        this.add(ficheEvt);
+        this.add(new javax.swing.JLabel(""));     
+       
     }
     
     /**
@@ -61,6 +63,8 @@ public class PlanningUI extends JPanel {
      */
     public boolean ajouterEvt(Evenement evt) {
         if (evt == null) { return false; }
+        
+        
         
         /** Projet à completer **/
             
@@ -88,4 +92,6 @@ public class PlanningUI extends JPanel {
 
         return null;
     }
+    
+  
 }

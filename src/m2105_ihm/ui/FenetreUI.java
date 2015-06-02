@@ -1,3 +1,4 @@
+
 /*
  * Module 2105 : module IHM : Carnet d'adresse
  */
@@ -6,20 +7,21 @@ package m2105_ihm.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+
+import javax.swing.*;
+import javax.swing.JPanel;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import m2105_ihm.Controleur;
         
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 public class FenetreUI extends JFrame {
     /*
@@ -30,12 +32,13 @@ public class FenetreUI extends JFrame {
     private JMenuItem [] menuEvenements; // à utiliser pour le mini projet    
 
     private JMenuBar barreMenu;
+    private JMenuItem[] menuContact;
     
     /**
      * Constructeur de la fenêtre principale
      */
     public FenetreUI(Controleur controleur) {
-        super("Gestion de contacts et d'\u00E9v\u00E9nements");
+        super("Gestion de contacts et d'évenements");
         
         this.controleur = controleur;
         
@@ -46,19 +49,21 @@ public class FenetreUI extends JFrame {
         initUIComponents();
     }
     
-   
+    /**
+     * Crée les menus de la fenêtre
+     */
     private void initMenus() {
-     
         
-        barreMenu= new JMenuBar();
-        barreMenu.add(initMenuFichier()); 
-        barreMenu.add(initMenuContacts()); 
-
-       
-        this.setJMenuBar(barreMenu); 
+        barreMenu = new JMenuBar();     
+        barreMenu.add(initMenuContacts());
+        barreMenu.add(initMenuFichier());
+        this.setJMenuBar(barreMenu);
+        
     }
 
-    
+    /**
+     * Crée un menu pour les fonction enregistrer et quitter
+     */
     private JMenu initMenuFichier() {
         JMenu menu;
                 
@@ -89,18 +94,13 @@ public class FenetreUI extends JFrame {
         return menu;
     }
         
-   
+    /**
+     * Crée un menu pour la gestion des contacts et groupes de contacts
+     * @return 
+     */
     private JMenu initMenuContacts() {
-      
-        /* menu Contacts */
-        
-        /* TP 3 : à compléter */
-      
-                
-         JMenu menu = new JMenu("Contacts");
-        
-               
-        menuContacts [0] = new JMenuItem("Creer Contact");
+        JMenu menu = new JMenu("Contacts");
+        menuContacts[0] = new JMenuItem("Créer Contact");
         menuContacts[0].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -109,55 +109,39 @@ public class FenetreUI extends JFrame {
             }
         );
         menu.add(menuContacts[0]);
-        
-       menu.addSeparator();
-        
-        
-
-        menuContacts[2] = new JMenuItem("Creer Groupe");
-        menuContacts[2].addActionListener(new ActionListener(){
+        menuContacts[1] = new JMenuItem("Créer Groupe");  
+        menuContacts[1].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controleur.creerGroupe();
                 }
             }
         );
-        menu.add(menuContacts[2]);
-        
-         menu.addSeparator();
-        
-        menuContacts[4] = new JMenuItem("Supprimer Contact");
-        menuContacts[4].addActionListener(new ActionListener(){
+        menu.add(menuContacts[1]);
+        menuContacts[2] = new JMenuItem("Supprimer Contact");  
+        menuContacts[2].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controleur.supprimerContact();
                 }
             }
         );
-        menu.add(menuContacts[4]);
-        
-        menu.addSeparator();
-        
-        
-        menuContacts[5] = new JMenuItem("Supprimer groupe");
-        menuContacts[5].addActionListener(new ActionListener(){
+        menu.add(menuContacts[2]);
+        menuContacts[3] = new JMenuItem("Supprimer Groupe");  
+        menuContacts[3].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controleur.supprimerGroupe();
                 }
             }
         );
-        menu.add(menuContacts[5]);
-        
-  
-        
-        
+        menu.add(menuContacts[3]);
         return menu;
-        
-        
     }
 
-   
+    /**
+     * Crée un menu pour la gestion des évènements
+     */
     private JMenu initMenuEvenements() {
         
         /* A compléter mini Projet */
@@ -165,10 +149,12 @@ public class FenetreUI extends JFrame {
         return null;
     }    
     
-   
+    /**
+     * Rend visible la fenetre
+     */
     public void afficher() {
         setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        setSize(900, 700);
+        setSize(900, 900);
         setVisible(true);                        
     }
     
@@ -226,8 +212,19 @@ public class FenetreUI extends JFrame {
         add(tabs, BorderLayout.CENTER);
         setMenuEnabled(MENU_CONTACTS, true);
         setMenuEnabled(MENU_EVENEMENTS, false);
+        
+        /*this.add(new JLabel("Nord"),BorderLayout.NORTH); 
+        this.add(new JLabel("Sud"),BorderLayout.SOUTH); 
+        this.add(new JLabel("Centre"),BorderLayout.CENTER);
+        this.add(new JLabel("Est"),BorderLayout.EAST); 
+        this.add(new JLabel("Ouest"),BorderLayout.WEST); 
+      
+        
+        this.getContentPane().add(new JButton("CENTER"), BorderLayout.CENTER);
+        this.getContentPane().add(new JButton("NORTH"), BorderLayout.NORTH);
+    */
+    
     }
-
     /**
     * Commutation dans les panneaux
     */

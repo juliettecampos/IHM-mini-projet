@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 /**
  * 

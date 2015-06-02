@@ -5,7 +5,8 @@ package m2105_ihm.nf;
 
 /**
  *
- * @author IUT2
+ * @author juliette campos
+
  */
 public enum Symbole {
     FLEUR("Fleur"),

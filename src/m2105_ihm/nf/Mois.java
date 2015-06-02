@@ -5,7 +5,7 @@ package m2105_ihm.nf;
 
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 /*
  * Liste des mois de l'année

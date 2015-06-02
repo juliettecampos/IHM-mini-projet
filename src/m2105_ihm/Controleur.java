@@ -10,10 +10,11 @@ import m2105_ihm.nf.Evenement;
 
 import m2105_ihm.ui.CarnetUI;
 import m2105_ihm.ui.FenetreUI;
+import m2105_ihm.ui.PlanningUI;
 
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 public class Controleur {
     
@@ -26,6 +27,7 @@ public class Controleur {
      * Composants
      */
     private CarnetUI carnetUI;
+    private PlanningUI planningUI;
     private FenetreUI fenetre;
 
     /**
@@ -72,10 +74,12 @@ public class Controleur {
     private void initUI() {
         /* Onglets */
         carnetUI = new CarnetUI(this);
+        planningUI=new PlanningUI(this);
 
         /* Fenêtre principale */
         fenetre = new FenetreUI(this);
         fenetre.addTab(carnetUI, "Carnet");     // onglet carnet
+            fenetre.addTab(planningUI, "Planning");     // onglet carnet
         fenetre.afficher();
     }
         

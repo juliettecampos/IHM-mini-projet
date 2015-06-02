@@ -15,8 +15,8 @@ import m2105_ihm.nf.Contact;
 import m2105_ihm.nf.GroupeContacts;
 
 /**
- *
- * @author IUT2
+ 
+ * @author juliette campos
  */
 public class CarnetUI extends JPanel {
     

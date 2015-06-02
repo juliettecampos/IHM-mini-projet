@@ -4,8 +4,8 @@
 package m2105_ihm.nf;
 
 /**
- *
- * @author IUT2
+ 
+ * @author juliette campos
  */
 public enum Hobby implements java.io.Serializable {
     CINEMA("Cin\u00E9ma"),

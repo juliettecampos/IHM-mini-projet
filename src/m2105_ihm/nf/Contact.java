@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author IUT2
+ * @author juliette campos
  */
 
 /**

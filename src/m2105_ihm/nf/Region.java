@@ -5,7 +5,7 @@ package m2105_ihm.nf;
 
 /**
  *
- * @author IUT2
+ * @autor juliette campos
  */
 
 /*

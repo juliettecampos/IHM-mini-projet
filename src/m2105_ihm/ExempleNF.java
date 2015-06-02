@@ -4,8 +4,8 @@
 package m2105_ihm;
 
 /**
- *
- * @author IUT2
+ 
+ * @author juliette campos
  */
 import java.awt.Point;
 import m2105_ihm.nf.*;
@@ -183,7 +183,7 @@ public class ExempleNF {
         /* Paramètre : chemin créer la base de données stockant le contenu
          * complet du carnet
          */
-        nf = new NoyauFonctionnel("/Users/laurillau/");
+        nf = new NoyauFonctionnel("/Users/campos/");
         
         /*
          * Créer et ajouter un contact au carnet
