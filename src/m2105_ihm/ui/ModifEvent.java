@@ -25,11 +25,12 @@ import java.awt.BorderLayout;
 import java.awt.*;
 import java.awt.GridBagLayout; 
 import java.awt.GridBagConstraints; 
+import static java.awt.image.ImageObserver.WIDTH;
 /**
  *
  * @author juliette campos
  */
-public class FicheEvtUI extends javax.swing.JPanel {
+public class ModifEvent extends javax.swing.JPanel {
     
     /*
      * Attributs
@@ -37,15 +38,14 @@ public class FicheEvtUI extends javax.swing.JPanel {
     
     private CarnetUI     carnet;
     private ZoneDessinUI zoneDessin;
-    private JTable      evenements;
-//    private DefaultTableModel model;
-    private PlanningUI          planning;
-    private JTextField  intitule;
-    private JTextField  dateAnnee;
-    private JComboBox  dateMois;
+    private JTable       evenements;
+    private PlanningUI   planning;
+    private JTextField   intitule;
+    private JTextField   dateAnnee;
+    private JComboBox    dateMois;
     private JTextField   dateJours;
-    private  JButton valider;
-    private  JButton annuler;
+    private  JButton     valider;
+    private  JButton     annuler;
     
     
     
@@ -53,17 +53,7 @@ public class FicheEvtUI extends javax.swing.JPanel {
     
     
     
-    /**
-     * Creates new form CarnetUI
-     */
-    public FicheEvtUI(PlanningUI planning) {
-        super();
-        
-        this.planning = planning;
-        
-        initUIComponents();
-        initListeners();
-    }
+    
 
     /**
      * Initialise la gestion des événements

@@ -3,14 +3,15 @@
  */
 package m2105_ihm;
 
-import m2105_ihm.nf.Contact;
-import m2105_ihm.nf.GroupeContacts;
-import m2105_ihm.nf.NoyauFonctionnel;
-import m2105_ihm.nf.Evenement;
 
-import m2105_ihm.ui.CarnetUI;
-import m2105_ihm.ui.FenetreUI;
-import m2105_ihm.ui.PlanningUI;
+import java.awt.Point;
+import java.util.Scanner;
+import javax.swing.JFrame;
+import m2105_ihm.nf.*;
+import m2105_ihm.nf.Mois;
+import m2105_ihm.ui.*;
+
+
 
 /**
  *
@@ -44,28 +45,82 @@ public class Controleur {
      * Action créer un nouveau contact
      */
     public void creerContact() {
+        Contact c = new Contact();
+
+        c.setDateNaissance(2002, Mois.NOVEMBRE, 22);
+        c.setNom("Votre nom");
+        c.setPrenom("Votre prenom");
+        c.setEmail("Votre mail");
+        c.setNumeroTelephone("01 02 03 04 05");
+        c.setRegion(Region.PACA);
+                
+        c.setDisponibilite(DispoSortie.NUIT);
+        
+        c.addHobby(Hobby.SPORT);
+        c.addHobby(Hobby.LECTURE);
+        carnetUI.ajouterContact(c);
+        
         System.out.println("Action pour creer un contact");
+        nf.addContact(c);
     }
 
     /**
      * Action supprimer contact
      */
     public void supprimerContact() {
+        Contact c = carnetUI.getSelectedContact();
+        BoiteDialogUI.afficherConfirmation(fenetre, c); 
+        carnetUI.retirerContact(c);
         System.out.println("Action pour supprimer un contact");
+        
     }
     
     /**
      * Action créer un groupe de contacts
      */
     public void creerGroupe() {
-        System.out.println("Action pour creer un groupe de contacts");
+        
+        GroupeContacts g = new GroupeContacts() ;  
+        
+        /* nom du groupe */
+        g.setNom("Copains IUT2");
+
+        /* symboles du groupe */ 
+        g.addSymbole(Symbole.FLEUR);
+        g.addSymbole(Symbole.ETOILE);
+        g.addSymbole(Symbole.TABLEAU);
+        
+        /* 
+         * Forme géometrique pour le logo du groupe (liste de points)
+         * Pour l'exemple : un carré
+         */
+        Point [] points = new Point[4];
+        
+        points[0] = new Point(20,20);
+        points[1] = new Point(100,20);
+        points[2] = new Point(100,100);
+        points[3] = new Point(20,100);
+        
+        g.setPoints(points);
+       
+        carnetUI.ajouterGroupe(g);
+
+        System.out.println("Action pour creer un groupe");
+
     }
 
     /**
      * Action supprimer un groupe de contacts
      */
-    public void supprimerGroupe() {
-        System.out.println("Action pour supprimer un groupe de contacts");
+    public void supprimerGroupe( ) {
+        
+        GroupeContacts g = carnetUI.getSelectedGroupe() ; 
+        
+       BoiteDialogUI.afficherConfirmation(fenetre, g); 
+       carnetUI.retirerGroupe(g);
+       System.out.println("Action pour supprimer un groupe");
+
+        
     }
     
     /**
@@ -79,7 +134,7 @@ public class Controleur {
         /* Fenêtre principale */
         fenetre = new FenetreUI(this);
         fenetre.addTab(carnetUI, "Carnet");     // onglet carnet
-            fenetre.addTab(planningUI, "Planning");     // onglet carnet
+        fenetre.addTab(planningUI, "Planning");     // onglet planning
         fenetre.afficher();
     }
         

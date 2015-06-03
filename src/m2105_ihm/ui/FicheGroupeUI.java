@@ -29,13 +29,17 @@ public class FicheGroupeUI extends javax.swing.JPanel {
     /*
      * Composants graphiques constituants l'interface
      */
-    private CarnetUI     carnet;
-    private ZoneDessinUI zoneDessin;
-    private JComboBox   contact[];
-    private JComboBox   symbol;
-    private JTable      tableau;
-    private DefaultTableModel model;
-    private  JButton erase;
+    private CarnetUI            carnet;
+    private ZoneDessinUI        zoneDessin;
+    private CarnetUI            carnetUI;
+    private JComboBox           contact[];
+    private JComboBox           symbol;
+    private JTable              tableau;
+    private DefaultTableModel   model;
+    private  JButton            erase;
+    private  JButton            annuler;
+    private  JButton            modifier;
+
 
     /**
      * Creates new form CarnetUI
@@ -69,6 +73,8 @@ public class FicheGroupeUI extends javax.swing.JPanel {
         this.add(global);
         
         JPanel effacer = new JPanel();
+         
+        JPanel modification = new JPanel();
         
         
             GridBagConstraints contrainte1 =new GridBagConstraints(); 
@@ -143,6 +149,18 @@ public class FicheGroupeUI extends javax.swing.JPanel {
                          
                 this.erase=new JButton("EFFACER");
                 effacer.add(erase);
+      
+                contrainte1.gridy ++ ;
+                contrainte1.gridx ++;
+                        
+                symbole.add(modification,contrainte1);
+                
+                this.annuler=new JButton("ANNULER");
+                modification.add(annuler);
+                                       
+                this.modifier=new JButton("MODIFIER ");
+                modification.add(modifier);
+                
 
     }
 
@@ -199,7 +217,7 @@ public class FicheGroupeUI extends javax.swing.JPanel {
     public void initListeners() {        
         /*
          * Réagit aux évènements produits par le bouton effacer
-         */
+         */ 
          erase.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                
@@ -209,5 +227,21 @@ public class FicheGroupeUI extends javax.swing.JPanel {
         });
         
        
+        annuler.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               
+                carnet.setGroupeModified(false);
+               
+            }
+        });
+         
+        modifier.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               
+                carnet.setGroupeModified(true);
+               
+            }
+        });
+          
     }    
 }

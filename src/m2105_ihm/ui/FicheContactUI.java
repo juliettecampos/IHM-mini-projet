@@ -3,15 +3,20 @@
  */
 package m2105_ihm.ui;
 
-import m2105_ihm.nf.*;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import m2105_ihm.ui.CarnetUI;
+import m2105_ihm.ui.*;
+import m2105_ihm.nf.*;
+import m2105_ihm.Controleur;
 import java.awt.BorderLayout; 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 /**
  *
  * @author juliette campos
@@ -24,13 +29,15 @@ public class FicheContactUI extends JPanel {
     private JTextField       champMail; 
     private JTextField       champTelephone;  
     private JTextField       champDatedenaissanceAnnee;
-    private  JComboBox      champDatedenaissanceMois;
+    private  JComboBox       champDatedenaissanceMois;
     private JTextField       champDatedenaissanceJours;
     private JCheckBox        champHobby[];  
-    private JCheckBox       champDisposorties[]; 
+    private JCheckBox        champDisposorties[]; 
     private JComboBox        champRegions; 
-    
-    
+    private  JButton         annuler;
+    private  JButton         modifier;
+
+
     
      
     
@@ -137,9 +144,9 @@ public class FicheContactUI extends JPanel {
         
     
        
-         preferences.add(new JLabel("Disponibilité :"));
-         preferences.add(new JLabel(""));
-         champDisposorties= new JCheckBox[Mois.values().length];
+          preferences.add(new JLabel("Disponibilité :"));
+          preferences.add(new JLabel(""));
+          champDisposorties= new JCheckBox[Mois.values().length];
          
 
         for(DispoSortie dispo : DispoSortie.values()) {
@@ -156,12 +163,15 @@ public class FicheContactUI extends JPanel {
         champRegions = new JComboBox(Region.values());
          preferences.add(champRegions);
         
-         
-         
-         
+ 
          this.add(boutons,BorderLayout.SOUTH); 
-         boutons.setLayout(new BorderLayout()); 
+         boutons.setLayout(new GridLayout(0,2)); 
+         annuler=new JButton("ANNULER");
+         boutons.add(annuler) ;
+         modifier=new JButton("APPLIQUER");
+         boutons.add(modifier) ;
         
+         
 
         
       
@@ -231,5 +241,25 @@ public class FicheContactUI extends JPanel {
      */
     private void initListeners() {
         /** TP 5 : à compléter **/ 
+     
+    
+              
+        annuler.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               
+                carnet.setContactModified(false);
+               
+            }
+        });
+         
+        modifier.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               
+                carnet.setContactModified(true);
+               
+            }
+        });
+        
+        
     }    
 }

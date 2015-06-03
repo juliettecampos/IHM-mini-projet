@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import m2105_ihm.Controleur;
+import m2105_ihm.nf.GroupeContacts;
         
 /**
  *
@@ -31,8 +32,8 @@ public class FenetreUI extends JFrame {
     private JMenuItem [] menuContacts;
     private JMenuItem [] menuEvenements; // à utiliser pour le mini projet    
 
-    private JMenuBar barreMenu;
-    private JMenuItem[] menuContact;
+    private JMenuBar     barreMenu;
+    private JMenuItem[]  menuContact;
     
     /**
      * Constructeur de la fenêtre principale
@@ -131,6 +132,7 @@ public class FenetreUI extends JFrame {
         menuContacts[3].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
+            
                     controleur.supprimerGroupe();
                 }
             }
