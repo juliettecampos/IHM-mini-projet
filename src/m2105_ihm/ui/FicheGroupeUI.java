@@ -133,8 +133,10 @@ public class FicheGroupeUI extends javax.swing.JPanel {
                          contrainte1.gridx --;
                          contrainte1.gridy ++ ;
                 
-                         symbole.add(new JLabel("Dessin :"),contrainte1);
                          zoneDessin = new ZoneDessinUI();
+                            this.add(zoneDessin);
+
+                            erase = new javax.swing.JButton("Effacer le contenu de la zone de dessin");
                          
                          contrainte1.gridy ++ ;
                          contrainte1.gridx ++;

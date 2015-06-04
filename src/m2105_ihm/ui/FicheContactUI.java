@@ -3,49 +3,65 @@
  */
 package m2105_ihm.ui;
 
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import m2105_ihm.ui.*;
+import java.awt.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.HashMap;
+import javax.swing.*;
 import m2105_ihm.nf.*;
-import m2105_ihm.Controleur;
-import java.awt.BorderLayout; 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
+
 /**
  *
- * @author juliette campos
+ * @author IUT2
  */
 public class FicheContactUI extends JPanel {
 
     private CarnetUI         carnet;
+    private JPanel           panelInfo;
+    
+    private Integer[]        jours;
+    private JPanel           paneldate;
+    private JPanel           paneldateLabel;
+    private JPanel           paneldatechamp;
+    
+    
+    private JPanel           panelPreferences;
+    
+    private JComboBox        listeJours;
+    private JComboBox        listeMois;
+    private JComboBox        listeAnnees;
+    private JComboBox        listeRegions;
+
+    
+    private JLabel           labelNom;
+    private JLabel           labelPrenom;
+    
     private JTextField       champNom;
-    private JTextField       champPrenom; 
-    private JTextField       champMail; 
-    private JTextField       champTelephone;  
-    private JTextField       champDatedenaissanceAnnee;
-    private  JComboBox       champDatedenaissanceMois;
-    private JTextField       champDatedenaissanceJours;
-    private JCheckBox        champHobby[];  
-    private JCheckBox        champDisposorties[]; 
-    private JComboBox        champRegions; 
-    private  JButton         annuler;
-    private  JButton         modifier;
+    private JTextField       champPrenom;
+    private JTextField       champTelephone;
+    private JTextField       champMail;
 
-
+    private HashMap<Hobby,JCheckBox> hashHobby;
     
-     
+    private JButton          valider;
+    private JButton          annuler;
     
+    
+    public Integer[] limJour(){
+        Integer[] j = new Integer[31];
+        for(int i=0; i<31; i++){
+            j[i]=i+1;
+        }
+        return j;
+    }
     /**
      * Formulaire pour saisir les informations relatives à un contact
      */
     public FicheContactUI(CarnetUI carnet) {
         super();
+        
+        
+        
         
         this.carnet      = carnet;
               
@@ -61,120 +77,134 @@ public class FicheContactUI extends JPanel {
         
         /*
          * Ajoute dans l'IHM un champ pour la saisie/Affichage du nom
-         */
+         */  
+        panelInfo = new JPanel();
+        paneldate = new JPanel();
+        paneldateLabel = new JPanel();
+        paneldatechamp = new JPanel();
+        panelPreferences = new JPanel();
         
-       this.setLayout(new BorderLayout());
-       
-       
-        JPanel identite = new JPanel();
-        this.add(identite);
-        
-        JPanel preferences = new JPanel();
-        this.add(preferences);
-        
-        JPanel boutons= new JPanel();
-        this.add(boutons);
-        
-        JPanel date= new JPanel();
-       
+        panelInfo.setLayout(new GridBagLayout());
+        paneldate.setLayout(new BorderLayout());
+        panelPreferences.setLayout(new GridBagLayout());
+        GridBagConstraints contraintes = new GridBagConstraints();
+        //c.weightx=1;
+        contraintes.ipady=5;
+        contraintes.gridx=1;
         
         
+        //////////////////////////////////////////
+        ////////// PANEL INFO NOM PRENOM /////////
+        //////////////////////////////////////////
         
-        this.add(identite,BorderLayout.NORTH); 
-        identite.setLayout(new GridLayout(0,2)); 
-       
-        
- 
-        identite.add(new JLabel("Nom :"));
+
+        labelNom = new JLabel("Nom");
         champNom = new JTextField(30);
-        identite.add(champNom);
         
-       
-        identite.add(new JLabel("Prenom :"));
+        
+        labelPrenom = new JLabel("Prénom");
         champPrenom = new JTextField(30);
-        identite.add(champPrenom);        
+        
+        panelInfo.add(labelNom,contraintes);
+        panelInfo.add(champNom,contraintes);
+        panelInfo.add(labelPrenom,contraintes);
+        panelInfo.add(champPrenom,contraintes);
+        
+        /////////////////////
+        //// PANEL DATE /////
+        /////////////////////
+        
+        jours = limJour();
+        listeJours = new JComboBox(jours);
         
        
+        Mois[] mois = Mois.values();
         
-        identite.add(new JLabel("Mail :"));
-         champMail = new JTextField(30);
-        identite.add(champMail);
+        listeMois = new JComboBox(mois);
         
         
-        identite.add(new JLabel("Telephone :"));
+       String[] annee = new String[150];
+       
+       for (int i=1865;i<2015;i++) {
+           annee[i-1865] = Integer.toString(i);
+       }
+       listeAnnees = new JComboBox(annee);
+       
+       paneldateLabel.add(new JLabel("Jour"),BorderLayout.EAST);
+       paneldateLabel.add(new JLabel("Mois"),BorderLayout.CENTER);
+       paneldateLabel.add(new JLabel("Annee"),BorderLayout.WEST);
+       
+       paneldatechamp.add(listeJours,BorderLayout.EAST);
+       paneldatechamp.add(listeMois,BorderLayout.CENTER);
+       paneldatechamp.add(listeAnnees,BorderLayout.WEST);
+       
+       
+       
+        
+        ////////////////////////////////////
+        //////// PANEL PERIPHERIQUE ////////
+        ////////////////////////////////////
+        
+        
         champTelephone = new JTextField(30);
-        identite.add(champTelephone);
-         
         
         
+        champMail = new JTextField(30);
         
-        identite.add(new JLabel("Date de naissance :"));
-        identite.add(date);
         
-        date.setLayout(new GridLayout(0,3)); 
-         
-        champDatedenaissanceJours = new JTextField(2);
-        date.add( champDatedenaissanceJours);
-  
-        champDatedenaissanceMois= new JComboBox(Mois.values());
-        date.add(champDatedenaissanceMois);
+        Region[] reg = Region.values();
+        listeRegions = new JComboBox(reg);
         
-        champDatedenaissanceAnnee = new JTextField(6);
-        date.add( champDatedenaissanceAnnee);
-
-     
-
-    
-        
-          this.add(preferences,BorderLayout.WEST); 
-          
-         preferences.setLayout(new GridLayout(0,2)); 
-         
-         preferences.add(new JLabel("Hobbies :"));
-         preferences.add(new JLabel(""));
-         champHobby=new JCheckBox[Hobby.values().length];
        
-        for(Hobby hobby : Hobby.values()) {
-         
-            champHobby[hobby.ordinal()]=new JCheckBox(hobby.toString());
-            preferences.add(champHobby[hobby.ordinal()]);
         
+        
+        panelPreferences.add(new JLabel("Telephone"),contraintes);
+        panelPreferences.add(champTelephone,contraintes);
+        
+        panelPreferences.add(new JLabel("Mail"),contraintes);
+        panelPreferences.add(champMail,contraintes);
+        
+        panelPreferences.add(new JLabel("Region"),contraintes);
+        panelPreferences.add(listeRegions,contraintes);
+        
+        
+        hashHobby = new HashMap<Hobby,JCheckBox>();
+        
+        for (Hobby h : Hobby.values()) {
+            hashHobby.put(h, new JCheckBox(h.toString()));
+            
+            panelPreferences.add(hashHobby.get(h),contraintes);
+            
         }
-       
         
-    
-       
-          preferences.add(new JLabel("Disponibilité :"));
-          preferences.add(new JLabel(""));
-          champDisposorties= new JCheckBox[Mois.values().length];
-         
-
-        for(DispoSortie dispo : DispoSortie.values()) {
-          
-            champDisposorties[dispo.ordinal()]=new JCheckBox( dispo.toString());
-             preferences.add(champDisposorties[dispo.ordinal()]);
-             preferences.add(new JLabel(""));
-        }
-         
-
-      
-         preferences.add(new JLabel("Regions :"));
-       
-        champRegions = new JComboBox(Region.values());
-         preferences.add(champRegions);
+        ///////////////////////
+        //////// AJOUT ////////
+        ///////////////////////
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints contrainte = new GridBagConstraints();
+        contrainte.fill = GridBagConstraints.HORIZONTAL;
+        contrainte.weightx=1;
+        contrainte.ipady=100;
+        contrainte.gridx=1;
+        this.add(panelInfo, contrainte);
+        contrainte.ipady=10;
+        this.add(paneldate, contrainte);
+        contrainte.ipady=80;
+        this.add(panelPreferences, contrainte);
         
- 
-         this.add(boutons,BorderLayout.SOUTH); 
-         boutons.setLayout(new GridLayout(0,2)); 
-         annuler=new JButton("ANNULER");
-         boutons.add(annuler) ;
-         modifier=new JButton("APPLIQUER");
-         boutons.add(modifier) ;
+        paneldate.add(paneldateLabel,BorderLayout.NORTH);
+        paneldate.add(paneldatechamp,BorderLayout.CENTER);
         
-         
-
+        valider = new JButton("APPLIQUER");
+        panelPreferences.add(valider,contraintes);
         
-      
+        annuler = new JButton("ANNULER");
+        panelPreferences.add(annuler,contraintes);
+        
+        
+        
+        
+        
     }
     
     /**
@@ -184,29 +214,27 @@ public class FicheContactUI extends JPanel {
      */
     public boolean setValues(Contact contact) {
         if (contact == null) { return false; }
-       
-        champNom.setText(contact.getNom());  
+        
+        /** TP 1 : à compléter **/
+        
+        /*
+         * Nom du contact
+         */
+        champNom.setText(contact.getNom()); 
         champPrenom.setText(contact.getPrenom());
-        champMail.setText(contact.getEmail());
         champTelephone.setText(contact.getNumeroTelephone());
-        champDatedenaissanceAnnee.setText(""+contact.getDateNaissanceAnnee());
-        champDatedenaissanceMois.setSelectedItem(contact.getDateNaissanceMois());
-        champDatedenaissanceJours.setText(""+contact.getDateNaissanceJour());
+        champMail.setText(contact.getEmail());
+        listeJours.setSelectedItem(contact.getDateNaissanceJour());
+        listeMois.setSelectedItem(contact.getDateNaissanceMois());
+        listeAnnees.setSelectedItem("" +contact.getDateNaissanceAnnee());
+        listeRegions.setSelectedItem(contact.getRegion());
         
-        
-         for(Hobby hobby : contact.getHobbies() ) {
-            champHobby[ hobby.ordinal() ].setSelected(true);
-            
+        for(JCheckBox J : hashHobby.values()) {
+            J.setSelected(false);
         }
-      
-         
-            champDisposorties[contact.getDisponibilite().ordinal()].setSelected(true);
-             
-         
-       
-          champRegions.setSelectedItem(contact.getRegion());
-        
-        
+        for (Hobby h : contact.getHobbies()) {
+            hashHobby.get(h).setSelected(true);
+        }
         
         return true;
     }
@@ -225,13 +253,32 @@ public class FicheContactUI extends JPanel {
          * Affecte une valeur à l'attribut Nom avec le nom saisi dans le champ
          * correspondant de l'IHM
          */
-        contact.setNom(champNom.getText());    
+        contact.setNom(champNom.getText());     
         contact.setPrenom(champPrenom.getText());
-        contact.setEmail(champMail.getText());
+        
+        int jour = listeJours.getSelectedIndex()+1;
+        Mois mois = (Mois) listeMois.getSelectedItem();
+        
+        int annee = listeAnnees.getSelectedIndex() +1865;
+        
+        contact.setDateNaissance(jour,mois, annee);
+        
+        
         contact.setNumeroTelephone(champTelephone.getText());
-        contact.setDateNaissance(contact.getDateNaissanceJour(), contact.getDateNaissanceMois(), contact.getDateNaissanceAnnee());
-       contact.setRegion(contact.getRegion());
-
+        contact.setEmail(champMail.getText());
+        contact.setRegion((Region) listeRegions.getSelectedItem());
+        
+        for (Hobby h : contact.getHobbies()) {
+            contact.removeHobby(h);
+        }
+        for (Hobby h : hashHobby.keySet()) {
+            if (hashHobby.get(h).isSelected()){
+            contact.addHobby(h);
+            }
+        }
+        
+        
+        
 
         return true;
     }
@@ -241,25 +288,23 @@ public class FicheContactUI extends JPanel {
      */
     private void initListeners() {
         /** TP 5 : à compléter **/ 
-     
-    
-              
+        
         annuler.addActionListener(new ActionListener() {
+
+            @Override
             public void actionPerformed(ActionEvent e) {
-               
                 carnet.setContactModified(false);
-               
             }
         });
-         
-        modifier.addActionListener(new ActionListener() {
+        
+        valider.addActionListener(new ActionListener() {
+
+            @Override
             public void actionPerformed(ActionEvent e) {
-               
                 carnet.setContactModified(true);
-               
             }
+            
+            
         });
-        
-        
     }    
 }

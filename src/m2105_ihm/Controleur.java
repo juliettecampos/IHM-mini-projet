@@ -72,7 +72,7 @@ public class Controleur {
         BoiteDialogUI.afficherConfirmation(fenetre, c); 
         carnetUI.retirerContact(c);
         System.out.println("Action pour supprimer un contact");
-        
+        nf.removeContact(c);
     }
     
     /**
@@ -106,7 +106,7 @@ public class Controleur {
         carnetUI.ajouterGroupe(g);
 
         System.out.println("Action pour creer un groupe");
-
+        nf.addGroupe(g);
     }
 
     /**
@@ -119,7 +119,7 @@ public class Controleur {
        BoiteDialogUI.afficherConfirmation(fenetre, g); 
        carnetUI.retirerGroupe(g);
        System.out.println("Action pour supprimer un groupe");
-
+       nf.removeGroupe(g);
         
     }
     

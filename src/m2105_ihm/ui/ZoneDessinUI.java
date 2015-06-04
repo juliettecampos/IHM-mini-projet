@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
 
 /**
  *
- * @author juliette campos
+ * @author IUT2
  */
 /**
  * 
@@ -36,8 +36,28 @@ public class ZoneDessinUI extends Canvas  {
         /*
          * Abonne le canvas aux évènements souris
          */
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+            @Override
+            public void mouseExited(MouseEvent e) {}
+            @Override
+            public void mousePressed(MouseEvent e) {
+                polygon.addPoint(e.getX(), e.getY());
+                repaint();
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+        });
         
         /** TP 2 : à compléter **/
+        //polygon.addPoint(100, 50);
+        //polygon.addPoint(50, 50);
+        //polygon.addPoint(80, 75);
+        //polygon.addPoint(50, 100);
+        //polygon.addPoint(100, 100);
     }
     
     /**
@@ -49,18 +69,36 @@ public class ZoneDessinUI extends Canvas  {
         Dimension dim = getSize();
 
         /** TP 2 : à modifier et compléter **/
-
-    
+        setBackground(Color.WHITE);
+        
+        g.setColor(Color.BLUE);
+        g.drawLine(0, 0, dim.width-1, 0);
+        g.drawLine(dim.width-1, 0, dim.width-1, dim.height-1);
+        g.drawLine(dim.width-1, dim.height-1, 0, dim.height-1);
+        g.drawLine(0, dim.height-1, 0, 0);
+        
+        g.setColor(Color.RED);
+        
+        /*for (int i = 0; i < this.polygon.npoints-1; i++)  {
+            g.drawLine(this.polygon.xpoints[i], this.polygon.ypoints[i], this.polygon.xpoints[i+1], this.polygon.ypoints[i+1]);
+        }*/
+        
         g.drawPolygon(polygon);
+        
+        /*
+         * Dessine une diagonale en fonction de la taille du canvas
+         */
+        //g.drawLine(0, 0, dim.width, dim.height);        
     }
 
-  
+    /**
+     * Efface le dessin
+     */
     public void effacer() {
         
-     
-        
-        System.out.println("Effacer logo");
+        /** TP 2 : à compléter **/
         polygon.reset();
+        
         this.repaint();
     }
         
@@ -71,11 +109,11 @@ public class ZoneDessinUI extends Canvas  {
     public void setPoints(Point [] dessin) {
         
         /** TP 2 : à compléter **/
+        for (Point p : dessin) {
+            polygon.addPoint(p.x,p.y);
+        }
         
-        polygon.addPoint(50,50); // juste un exemple pour un seul point
-        polygon.addPoint(100,75);
-        polygon.addPoint(150,50);
-        polygon.addPoint(100,25);
+        this.repaint();
     }
 
     /**
