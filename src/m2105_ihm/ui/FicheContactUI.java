@@ -142,7 +142,7 @@ public class FicheContactUI extends JPanel {
        
         
         ////////////////////////////////////
-        //////// PANEL PERIPHERIQUE ////////
+        //////// PANEL PREFERENCES ////////
         ////////////////////////////////////
         
         
@@ -177,9 +177,9 @@ public class FicheContactUI extends JPanel {
             
         }
         
-        ///////////////////////
-        //////// AJOUT ////////
-        ///////////////////////
+        //////////////////////////////
+        //////// MISE EN PAGE ////////
+        //////////////////////////////
         this.setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
         contrainte.fill = GridBagConstraints.HORIZONTAL;
