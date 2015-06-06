@@ -5,6 +5,7 @@ package m2105_ihm;
 
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import m2105_ihm.nf.*;
@@ -69,10 +70,12 @@ public class Controleur {
      */
     public void supprimerContact() {
         Contact c = carnetUI.getSelectedContact();
-        BoiteDialogUI.afficherConfirmation(fenetre, c); 
-        carnetUI.retirerContact(c);
-        System.out.println("Action pour supprimer un contact");
-        nf.removeContact(c);
+        boolean res = BoiteDialogUI.afficherConfirmation(fenetre, c); 
+        if (res)    {
+            carnetUI.retirerContact(c);
+            System.out.println("Action pour supprimer un contact");
+            nf.removeContact(c);
+        }
     }
     
     /**
@@ -116,13 +119,69 @@ public class Controleur {
         
         GroupeContacts g = carnetUI.getSelectedGroupe() ; 
         
-       BoiteDialogUI.afficherConfirmation(fenetre, g); 
-       carnetUI.retirerGroupe(g);
-       System.out.println("Action pour supprimer un groupe");
-       nf.removeGroupe(g);
-        
+       boolean res = BoiteDialogUI.afficherConfirmation(fenetre, g); 
+       if (res)    {
+            carnetUI.retirerGroupe(g);
+            System.out.println("Action pour supprimer un groupe");
+            nf.removeGroupe(g);
+       }
     }
     
+    
+    public void ajouterContactGroupe() {
+        
+        /** TP5 : à compléter **/
+        Contact addContactdsGroupe = carnetUI.getSelectedContact();
+        GroupeContacts groupe = BoiteDialogUI.afficherChoixMembreContact(fenetre, "Ajouter le contact dans le groupe :", nf.getGroupes());
+        if (groupe != null){
+            groupe.addContact(addContactdsGroupe);
+        }
+    }
+    
+    public void retirerContactGroupe() {
+        
+        /** TP5 : à compléter **/
+        Contact delContactdsGroupe = carnetUI.getSelectedContact();
+        GroupeContacts groupe = BoiteDialogUI.afficherChoixMembreContact(fenetre, "Retirer le contact du groupe :", nf.getGroupesContact(delContactdsGroupe));
+        if (groupe != null){
+            groupe.removeContact(delContactdsGroupe);
+        }    
+    }
+    
+    /**
+     * Crée un nouvel événement
+     */
+    public void creerEvenement() {
+    
+       /** Projet **/
+       Evenement event = new Evenement();
+       nf.addEvenement(event);
+       planningUI.ajouterEvt(event);
+    }
+
+    /**
+     * Supprime un événement existant
+     */
+    public void supprimerEvenement() {
+       
+       /** Projet **/
+       Evenement e = planningUI.getSelectedEvt();
+       BoiteDialogUI.afficherConfirmation(fenetre, e);
+       nf.removeEvenement(e);
+       planningUI.retirerEvt(e);
+    }
+    
+    /**
+     * Modifier un participant à un événement
+     */
+    public void ajouterParticipantEvenement() {
+    
+       /** Projet **/
+        Evenement[] e = nf.getEvenements();
+        BoiteDialogUI.afficherChoixEventContact(fenetre, "Selection de l'evenement", e);
+        //Pas fini   
+    }
+
     /**
      * Création des composants constituant la fenêtre principale
      */

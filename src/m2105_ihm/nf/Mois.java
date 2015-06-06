@@ -23,8 +23,10 @@ public enum Mois implements java.io.Serializable {
     OCTOBRE("octobre"),
     NOVEMBRE("novembre"),
     DECEMBRE("d\u00E9cembre");
+    
 
     private final String label;
+    
     
     private Mois(String label) { 
         this.label = label; 

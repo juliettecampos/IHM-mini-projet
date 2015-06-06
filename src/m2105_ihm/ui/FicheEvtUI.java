@@ -3,54 +3,32 @@
  */
 package m2105_ihm.ui;
 
-import m2105_ihm.nf.Mois;
-import m2105_ihm.nf.Contact;
-import m2105_ihm.nf.Evenement;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import m2105_ihm.nf.*;
-import m2105_ihm.ui.CarnetUI;
-import java.awt.BorderLayout; 
-import java.awt.*;
-import java.awt.GridBagLayout; 
-import java.awt.GridBagConstraints; 
-/**
- *
- * @author juliette campos
- */
+import m2105_ihm.nf.Contact;
+import m2105_ihm.nf.Evenement;
+import m2105_ihm.nf.Mois;
+
 public class FicheEvtUI extends javax.swing.JPanel {
-    
-    /*
-     * Attributs
-     */
-    
-    private CarnetUI     carnet;
-    private ZoneDessinUI zoneDessin;
-    private JTable      evenements;
-//    private DefaultTableModel model;
-    private PlanningUI          planning;
-    private JTextField  intitule;
-    private JTextField  dateAnnee;
-    private JComboBox  dateMois;
-    private JTextField   dateJours;
-    private  JButton valider;
-    private  JButton annuler;
-    
-    
-    
-    
-    
+
+    private PlanningUI planning;
+    private JTextField intitule;
+    private JButton valider;
+    private JButton annuler;
+    private JButton ajouterParticipants;
+    private JButton retirerParticipants;
+    private JList listeParticipants;
+    private GridBagConstraints contrainte;
     
     
     /**
@@ -71,8 +49,16 @@ public class FicheEvtUI extends javax.swing.JPanel {
     private void initListeners() {
         
         /** Projet : à compléter **/
-      
+        
+        if (valider != null){
+            valider.addActionListener(new ActionListener() {
 
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    planning.getSelectedEvt().setIntitule(intitule.getText());
+                }
+            });
+        }
         
     }
     
@@ -81,50 +67,50 @@ public class FicheEvtUI extends javax.swing.JPanel {
      */    
     private void initUIComponents() {
         
-        /** Projet : à compléter **/   
+        this.setBorder(BorderFactory.createTitledBorder(planning.getSelectedDate()));
         
-        this.setLayout(new GridLayout(0,2));
-        JPanel boutons= new JPanel();
-        JPanel date= new JPanel();
-        
-        
-        
-      
-         this.add(new JLabel("EVENEMENTS"));
-         this.add(new JLabel(""));
-          this.add(new JLabel(""));
-          this.add(new JLabel(""));
-          
-         
-         this.add(new JLabel("Intitulé :"));
-         intitule = new JTextField(30);
-         this.add(intitule);
-         
-         this.add(new JLabel("Date :"));
-         
-         
-         this.add(date);
-        
-        date.setLayout(new GridLayout(0,3)); 
-        dateJours = new JTextField(2);
-        date.add( dateJours);
-  
-        dateMois= new JComboBox(Mois.values());
-        date.add(dateMois);
-        
-        dateAnnee = new JTextField(6);
-        date.add( dateAnnee);
-        
-        
-           this.add(new JLabel("")); 
-           
-           this.valider=new JButton("VALIDER");
-           boutons.add(valider);
+        if (planning.getSelectedEvt() != null){
+            //mise en place du layout
+            this.setLayout(new GridBagLayout());
+            
+            //élements
+            contrainte = new GridBagConstraints();
+            ajouterParticipants = new JButton("Ajouter participants");
+            retirerParticipants = new JButton("Retirer participants");
+            
+            //ajout des composants
+            contrainte.gridx = 0;
+            contrainte.gridy = 0;
+            contrainte.weightx = 1;
+            contrainte.anchor = GridBagConstraints.CENTER;
+            contrainte.weightx = 1.;
+            this.add(new JLabel("Intitulé : "), contrainte);
 
-           this.annuler=new JButton("ANNULER");
-           boutons.add(annuler);
-           this.add(boutons);
-        
+            contrainte.gridx = 1;
+            contrainte.gridy = 0;
+            intitule = new JTextField(15);
+            this.add(intitule, contrainte);
+            
+            contrainte.gridx = 1;
+            contrainte.gridy = 3;
+            listeParticipants = new JList();
+            this.add(listeParticipants,contrainte);
+
+            contrainte.gridx = 1;
+            contrainte.gridy = 1;
+            valider = new JButton("Enregistrer");
+            contrainte.insets = new Insets(5, 0, 0, 5);
+            this.add(valider, contrainte);
+
+            contrainte.gridx = 1;
+            contrainte.gridy = 2;
+            annuler = new JButton("Annuler");
+            contrainte.ipadx = 25; 
+            this.add(annuler, contrainte);
+        } else{
+            this.add(new JLabel("Il n'y a pas d'évènements pour ce jour !"));
+        }
+
     }
 
     /**
@@ -133,16 +119,10 @@ public class FicheEvtUI extends javax.swing.JPanel {
      * @return
      */        
     public boolean setValues(Evenement event) {
-        if (event == null) { return false; }            
-                  
+        if (event == null) { return false; }
         
-         intitule.setText(event.getIntitule());
-       
-
-        dateAnnee.setText(""+event.getDateAnnee());
-        dateMois.setSelectedItem(event.getDateMois());
-        dateJours.setText(""+event.getDateJour());
-        
+        intitule.setText(event.getIntitule());
+        listeParticipants.setListData(planning.getSelectedEvt().getParticipants());
             
         return false;
     }
@@ -154,12 +134,10 @@ public class FicheEvtUI extends javax.swing.JPanel {
      */    
     public boolean getValues(Evenement event) {
         
-        
         if (event == null) { return false; }
+       
+        event.setIntitule(intitule.getText());
         
-              event.setIntitule(intitule.getText());    
-              event.setDate(WIDTH, Mois.MARS, WIDTH);
-               
         return true;
     }
 }

@@ -47,7 +47,7 @@ public class FicheContactUI extends JPanel {
     private JButton          annuler;
     
     
-    public Integer[] limJour(){
+    public Integer[] listeJour(){
         Integer[] j = new Integer[31];
         for(int i=0; i<31; i++){
             j[i]=i+1;
@@ -114,7 +114,7 @@ public class FicheContactUI extends JPanel {
         //// PANEL DATE /////
         /////////////////////
         
-        jours = limJour();
+        jours = listeJour();
         listeJours = new JComboBox(jours);
         
        
