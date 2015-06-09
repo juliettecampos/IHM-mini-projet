@@ -23,7 +23,7 @@ public class Controleur {
     /*
      * Noyau Fonctionnel
      */    
-    NoyauFonctionnel nf;
+    public NoyauFonctionnel nf;
             
     /*
      * Composants
@@ -48,17 +48,16 @@ public class Controleur {
     public void creerContact() {
         Contact c = new Contact();
 
-        c.setDateNaissance(2002, Mois.NOVEMBRE, 22);
+        c.setDateNaissance(1995, Mois.JANVIER, 1);
         c.setNom("Votre nom");
         c.setPrenom("Votre prenom");
         c.setEmail("Votre mail");
         c.setNumeroTelephone("01 02 03 04 05");
-        c.setRegion(Region.PACA);
+        c.setRegion(Region.ALSACE);
                 
-        c.setDisponibilite(DispoSortie.NUIT);
+        c.setDisponibilite(DispoSortie.WEEK_END);
         
-        c.addHobby(Hobby.SPORT);
-        c.addHobby(Hobby.LECTURE);
+        
         carnetUI.ajouterContact(c);
         
         System.out.println("Action pour creer un contact");
@@ -166,10 +165,10 @@ public class Controleur {
        
        /** Projet **/
        Evenement e = planningUI.getSelectedEvt();
-       BoiteDialogUI.afficherConfirmation(fenetre, e);
-       nf.removeEvenement(e);
-       planningUI.retirerEvt(e);
-    }
+        if (BoiteDialogUI.afficherConfirmation(fenetre, e)) {
+            nf.removeEvenement(e);
+            planningUI.retirerEvt(e);
+    }}
     
     /**
      * Modifier un participant à un événement
@@ -177,9 +176,7 @@ public class Controleur {
     public void ajouterParticipantEvenement() {
     
        /** Projet **/
-        Evenement[] e = nf.getEvenements();
-        BoiteDialogUI.afficherChoixEventContact(fenetre, "Selection de l'evenement", e);
-        //Pas fini   
+        Evenement e = planningUI.getSelectedEvt();
     }
 
     /**

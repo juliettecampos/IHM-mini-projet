@@ -5,8 +5,11 @@
 package m2105_ihm.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Event;
+import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.JPanel;
@@ -30,7 +33,8 @@ public class FenetreUI extends JFrame {
      */
     private JMenuItem [] menuFichier;
     private JMenuItem [] menuContacts;
-    private JMenuItem [] menuEvenements; // à utiliser pour le mini projet    
+    private JMenuItem [] menuEvenements;
+    private JMenuItem [] menuGroupe;// à utiliser pour le mini projet    
 
     private JMenuBar     barreMenu;
     
@@ -43,8 +47,9 @@ public class FenetreUI extends JFrame {
         this.controleur = controleur;
         
         menuFichier = new JMenuItem[2];
-        menuContacts = new JMenuItem[6];
+        menuContacts = new JMenuItem[2];
         menuEvenements = new JMenuItem[4];
+        menuGroupe = new JMenuItem[4];
 
         initMenus();
         initUIComponents();
@@ -57,8 +62,10 @@ public class FenetreUI extends JFrame {
         
         barreMenu = new JMenuBar();     
         barreMenu.add(initMenuContacts());
-        barreMenu.add(initMenuFichier());
+        barreMenu.add(initMenuGroupe());
         barreMenu.add(initMenuEvenements());
+        barreMenu.add(initMenuFichier());
+
         this.setJMenuBar(barreMenu);
         
         
@@ -74,6 +81,8 @@ public class FenetreUI extends JFrame {
         
         /* Enregistrer */        
         menuFichier[0] = new JMenuItem("Enregistrer");
+        menuFichier[0].setMnemonic(KeyEvent.VK_S);
+        menuFichier[0].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         menuFichier[0].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -85,6 +94,8 @@ public class FenetreUI extends JFrame {
         
         /* Quitter */
         menuFichier[1] = new JMenuItem("Quitter");
+        menuFichier[1].setMnemonic(KeyEvent.VK_Q);
+        menuFichier[1].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
         menuFichier[1].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -93,7 +104,6 @@ public class FenetreUI extends JFrame {
             }
         );
         menu.add(menuFichier[1]);
-        
         return menu;
     }
         
@@ -103,7 +113,7 @@ public class FenetreUI extends JFrame {
      */
     private JMenu initMenuContacts() {
         JMenu menu = new JMenu("Contacts");
-        menuContacts[0] = new JMenuItem("Créer Contact");
+        menuContacts[0] = new JMenuItem("Créer contact");
         menuContacts[0].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -112,56 +122,18 @@ public class FenetreUI extends JFrame {
             }
         );
         menu.add(menuContacts[0]);
-        menuContacts[1] = new JMenuItem("Créer Groupe");  
+        
+        menuContacts[1] = new JMenuItem("Supprimer contact");  
         menuContacts[1].addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    controleur.creerGroupe();
-                }
-            }
-        );
-        menu.add(menuContacts[1]);
-        menuContacts[2] = new JMenuItem("Supprimer Contact");  
-        menuContacts[2].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     controleur.supprimerContact();
                 }
             }
         );
-        menu.add(menuContacts[2]);
-        menuContacts[3] = new JMenuItem("Supprimer Groupe");  
-        menuContacts[3].addActionListener(new ActionListener(){
-                @Override
-                public void actionPerformed(ActionEvent e) {
-            
-                    controleur.supprimerGroupe();
-                }
-            }
-        );
-        menu.add(menuContacts[3]);
+        menu.add(menuContacts[1]);
         
-        JMenuItem AjouterContactGroupe = new JMenuItem("Ajouter un contact au groupe");
-        menuContacts[4] = AjouterContactGroupe;
-        menuContacts[4].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controleur.ajouterContactGroupe();
-            }
-        }
-        );
-        menu.add(menuContacts[4]);
-
-        JMenuItem RetirerContactGroupe = new JMenuItem("Retirer un contact au groupe");
-        menuContacts[5] = RetirerContactGroupe;
-        menuContacts[5].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controleur.retirerContactGroupe();
-            }
-        }
-        );
-        menu.add(menuContacts[5]);
+        
         return menu;
     }
 
@@ -178,7 +150,6 @@ public class FenetreUI extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Créer un évenement");
                 controleur.creerEvenement();
             }
         });
@@ -193,7 +164,7 @@ public class FenetreUI extends JFrame {
             }
         );
         menu.add(menuEvenements[1]);
-        
+        menu.addSeparator();
         menuEvenements[2] = new JMenuItem("Ajouter un participant a l'evenement");
         menuEvenements[2].addActionListener(new ActionListener() {
 
@@ -206,12 +177,68 @@ public class FenetreUI extends JFrame {
         return menu;
     }    
     
+    
+    private JMenu initMenuGroupe() {
+        
+        JMenu menu = new JMenu("Groupe");
+
+        
+        menuGroupe[0] = new JMenuItem("Créer Groupe");  
+        menuGroupe[0].addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    controleur.creerGroupe();
+                }
+            }
+        );
+        menu.add(menuGroupe[0]);
+        
+        menuGroupe[1] = new JMenuItem("Supprimer Groupe");  
+        menuGroupe[1].addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+            
+                    controleur.supprimerGroupe();
+                }
+            }
+        );
+        menu.add(menuGroupe[1]);
+        
+        menu.addSeparator();
+        menuGroupe[2] = new JMenuItem("Ajouter un contact au groupe");
+        menuGroupe[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controleur.ajouterContactGroupe();
+            }
+        }
+        );
+        menu.add(menuGroupe[2]);
+
+        menuGroupe[3] = new JMenuItem("Retirer un contact au groupe");
+        menuGroupe[3].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controleur.retirerContactGroupe();
+            }
+        }
+        );
+        menu.add(menuGroupe[3]);    
+    return menu;
+    }
+    
+    
+    
+    
+    
+    
+    
     /**
      * Rend visible la fenetre
      */
     public void afficher() {
         setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        setSize(900, 900);
+        setSize(600, 700);
         setVisible(true);                        
     }
     
@@ -231,6 +258,7 @@ public class FenetreUI extends JFrame {
     public void setMenuContactSelected(boolean selected) {
         this.contactSelected = selected;
         setMenuEnabled(MENU_CONTACTS, true);
+        setMenuEnabled(MENU_GROUPE,true);
         setMenuEnabled(MENU_EVENEMENTS, false);
     }
 
@@ -239,8 +267,9 @@ public class FenetreUI extends JFrame {
     * @param selected vrai si un événement est sélectionné
     */
     public void setMenuEvenementSelected(boolean selected) {
-        this.evtSelected = selected;
+        this.evenementSelected = selected;
         setMenuEnabled(MENU_CONTACTS, false);
+        setMenuEnabled(MENU_GROUPE,false);
         setMenuEnabled(MENU_EVENEMENTS, true);
     }
 
@@ -257,10 +286,14 @@ public class FenetreUI extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 if (tabs.getSelectedIndex() == 0) {
                     setMenuEnabled(MENU_CONTACTS, true);
-                    setMenuEnabled(MENU_EVENEMENTS, false);                    
+                    setMenuEnabled(MENU_EVENEMENTS, false);
+                    setMenuEnabled(MENU_GROUPE,true);
                 } else {
                     setMenuEnabled(MENU_CONTACTS, false);
-                    setMenuEnabled(MENU_EVENEMENTS, true);                                        
+                    
+                    setMenuEnabled(MENU_GROUPE,false);
+                    setMenuEnabled(MENU_EVENEMENTS, true); 
+
                 }
             }
         });
@@ -268,18 +301,10 @@ public class FenetreUI extends JFrame {
         setLayout(new BorderLayout());        
         add(tabs, BorderLayout.CENTER);
         setMenuEnabled(MENU_CONTACTS, true);
-        setMenuEnabled(MENU_EVENEMENTS, false);
+        setMenuEnabled(MENU_GROUPE,true);
+        setMenuEnabled(MENU_EVENEMENTS, true);
         
-        /*this.add(new JLabel("Nord"),BorderLayout.NORTH); 
-        this.add(new JLabel("Sud"),BorderLayout.SOUTH); 
-        this.add(new JLabel("Centre"),BorderLayout.CENTER);
-        this.add(new JLabel("Est"),BorderLayout.EAST); 
-        this.add(new JLabel("Ouest"),BorderLayout.WEST); 
-      
         
-        this.getContentPane().add(new JButton("CENTER"), BorderLayout.CENTER);
-        this.getContentPane().add(new JButton("NORTH"), BorderLayout.NORTH);
-    */
     
     }
     /**
@@ -290,17 +315,16 @@ public class FenetreUI extends JFrame {
             case MENU_CONTACTS:
                  setMenuEntryEnabled(MENU_CONTACTS, 0, enabled);
                  setMenuEntryEnabled(MENU_CONTACTS, 1, enabled);
-                 setMenuEntryEnabled(MENU_CONTACTS, 2, enabled &    contactSelected);
-                 setMenuEntryEnabled(MENU_CONTACTS, 3, enabled & (! contactSelected));
-                 setMenuEntryEnabled(MENU_CONTACTS, 4, enabled &    contactSelected);
-                 setMenuEntryEnabled(MENU_CONTACTS, 5, enabled &    contactSelected);                 
                  break;
-
+            case MENU_GROUPE:
+                setMenuEntryEnabled(MENU_GROUPE, 0, enabled  &    groupeSelected);
+                 setMenuEntryEnabled(MENU_GROUPE, 1, enabled &    groupeSelected);
+                 setMenuEntryEnabled(MENU_GROUPE, 2, enabled &    contactSelected);
+                 setMenuEntryEnabled(MENU_GROUPE, 3, enabled &    contactSelected);         
             case MENU_EVENEMENTS:
                  setMenuEntryEnabled(MENU_EVENEMENTS, 0, enabled);
                  setMenuEntryEnabled(MENU_EVENEMENTS, 1, enabled );
-                 setMenuEntryEnabled(MENU_EVENEMENTS, 2, enabled );
-                 setMenuEntryEnabled(MENU_EVENEMENTS, 3, enabled );            
+                 setMenuEntryEnabled(MENU_EVENEMENTS, 2, true & contactSelected);            
                  break;                
         }
     }
@@ -326,8 +350,15 @@ public class FenetreUI extends JFrame {
                 }
                 break;
                 
+            case MENU_GROUPE:
+                if ((index >= 0) && (index < menuGroupe.length)) {
+                    if (menuGroupe[index] != null) {
+                        menuGroupe[index].setEnabled(enabled);
+                    }
+                }
+                break;
             case MENU_EVENEMENTS:
-                if ((menuEvenements != null) && (index >= 0) && (index < menuEvenements.length)) {
+                if ((index >= 0) && (index < menuEvenements.length)) {
                     if (menuEvenements[index] != null) {
                         menuEvenements[index].setEnabled(enabled);
                     }
@@ -339,8 +370,11 @@ public class FenetreUI extends JFrame {
     private JTabbedPane tabs;    
     private Controleur controleur;    
     private boolean contactSelected = true;
-    private boolean evtSelected = false;    
+    private boolean groupeSelected = true;
+    private boolean evenementSelected = false;    
     private static final int MENU_FICHIER    = 0;
     private static final int MENU_CONTACTS   = 1;
     private static final int MENU_EVENEMENTS = 2;        
+    private static final int MENU_GROUPE = 3;
+    
 }

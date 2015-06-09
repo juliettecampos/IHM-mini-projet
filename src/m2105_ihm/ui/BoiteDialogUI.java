@@ -83,15 +83,15 @@ public class BoiteDialogUI {
      * @param e un événement
      * @return vrai si confirmé
      */
-    public static boolean afficherConfirmation(JFrame fenetre, Evenement e) {
+    public static boolean afficherConfirmation(JFrame fenetre, Evenement event) {
         boolean res = false;
 
-        if (e != null) {
+        if (event != null) {
             String[] choix = new String[]{"Supprimer", "Annuler"};
 
             Object selectedValue = JOptionPane.showOptionDialog(fenetre,
                     "Voulez-vous vraiment supprimer l'événement : "
-                    + e.getIntitule() + " ?",
+                    + event.getIntitule() + " ?",
                     "Suppression d'un événement",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,

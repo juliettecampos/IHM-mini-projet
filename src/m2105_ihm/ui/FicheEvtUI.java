@@ -3,9 +3,13 @@
  */
 package m2105_ihm.ui;
 
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import m2105_ihm.nf.Mois;
 import m2105_ihm.nf.Contact;
 import m2105_ihm.nf.Evenement;
+import m2105_ihm.nf.GroupeContacts;
+import m2105_ihm.nf.NoyauFonctionnel;
 
 /**
  *
@@ -17,7 +21,7 @@ public class FicheEvtUI extends javax.swing.JPanel {
      * Attributs
      */
     private PlanningUI          planning;
-    
+    private NoyauFonctionnel nf;
     /**
      * Creates new form CarnetUI
      */
@@ -45,7 +49,9 @@ public class FicheEvtUI extends javax.swing.JPanel {
     private void initUIComponents() {
         
         /** Projet : à compléter **/    
-  
+//        Evenement[] e = nf.getEvenements();
+        
+        
     }
 
     /**

@@ -88,16 +88,9 @@ public class FicheContactUI extends JPanel {
         paneldate.setLayout(new BorderLayout());
         panelPreferences.setLayout(new GridBagLayout());
         GridBagConstraints contraintes = new GridBagConstraints();
-        //c.weightx=1;
         contraintes.ipady=5;
         contraintes.gridx=1;
-        
-        
-        //////////////////////////////////////////
-        ////////// PANEL INFO NOM PRENOM /////////
-        //////////////////////////////////////////
-        
-
+        //panel info
         labelNom = new JLabel("Nom");
         champNom = new JTextField(30);
         
@@ -110,10 +103,7 @@ public class FicheContactUI extends JPanel {
         panelInfo.add(labelPrenom,contraintes);
         panelInfo.add(champPrenom,contraintes);
         
-        /////////////////////
-        //// PANEL DATE /////
-        /////////////////////
-        
+        //panel naissance
         jours = listeJour();
         listeJours = new JComboBox(jours);
         
@@ -123,10 +113,10 @@ public class FicheContactUI extends JPanel {
         listeMois = new JComboBox(mois);
         
         
-       String[] annee = new String[150];
+       String[] annee = new String[96];
        
-       for (int i=1865;i<2015;i++) {
-           annee[i-1865] = Integer.toString(i);
+       for (int i=1920;i<=2015;i++) {
+           annee[i-1920] = Integer.toString(i);
        }
        listeAnnees = new JComboBox(annee);
        
@@ -141,16 +131,10 @@ public class FicheContactUI extends JPanel {
        
        
         
-        ////////////////////////////////////
-        //////// PANEL PREFERENCES ////////
-        ////////////////////////////////////
-        
-        
+       //panel pref
         champTelephone = new JTextField(30);
         
-        
         champMail = new JTextField(30);
-        
         
         Region[] reg = Region.values();
         listeRegions = new JComboBox(reg);
@@ -177,25 +161,27 @@ public class FicheContactUI extends JPanel {
             
         }
         
-        //////////////////////////////
-        //////// MISE EN PAGE ////////
-        //////////////////////////////
+        //MEP
         this.setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
         contrainte.fill = GridBagConstraints.HORIZONTAL;
-        contrainte.weightx=1;
-        contrainte.ipady=100;
-        contrainte.gridx=1;
+        contrainte.weightx=2;
+        contrainte.ipady=50;
+        contrainte.gridx=2;
         this.add(panelInfo, contrainte);
-        contrainte.ipady=10;
+        contrainte.ipady=20;
         this.add(paneldate, contrainte);
-        contrainte.ipady=80;
+        contrainte.ipady=50;
         this.add(panelPreferences, contrainte);
-        
+        champMail.setHorizontalAlignment(JTextField.CENTER);
+        champTelephone.setHorizontalAlignment(JTextField.CENTER);
+        champNom.setHorizontalAlignment(JTextField.CENTER);
+        champPrenom.setHorizontalAlignment(JTextField.CENTER);
+
         paneldate.add(paneldateLabel,BorderLayout.NORTH);
         paneldate.add(paneldatechamp,BorderLayout.CENTER);
         
-        valider = new JButton("APPLIQUER");
+        valider = new JButton("MODIFIER");
         panelPreferences.add(valider,contraintes);
         
         annuler = new JButton("ANNULER");
@@ -259,7 +245,7 @@ public class FicheContactUI extends JPanel {
         int jour = listeJours.getSelectedIndex()+1;
         Mois mois = (Mois) listeMois.getSelectedItem();
         
-        int annee = listeAnnees.getSelectedIndex() +1865;
+        int annee = listeAnnees.getSelectedIndex() +1920;
         
         contact.setDateNaissance(jour,mois, annee);
         

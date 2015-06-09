@@ -153,7 +153,7 @@ public class FicheGroupeUI extends javax.swing.JPanel {
         /*
          * Réagit aux évènements produits par le bouton effacer
          */ 
-         annuler.addActionListener(new ActionListener() {
+         erase.addActionListener(new ActionListener() {
              @Override
             public void actionPerformed(ActionEvent e) {
                
