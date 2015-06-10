@@ -3,6 +3,7 @@
  */
 package m2105_ihm.ui;
 
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -31,7 +32,6 @@ public class FicheEvtUI extends javax.swing.JPanel {
         super();
         
         this.planning = planning;
-        
         initUIComponents();
         initListeners();
     }
@@ -50,7 +50,13 @@ public class FicheEvtUI extends javax.swing.JPanel {
      */    
     private void initUIComponents() {
         
-        /** Projet : à compléter **/    
+        /** Projet : à compléter **/  
+        
+      
+      ArrayList<Evenement> e  = new ArrayList<Evenement>();
+      this.add(new javax.swing.JLabel("Evenements"));  
+      e = planning.controleur.nf.getEvenements();
+      
       JPanel evenement=new JPanel();
       this.add(evenement);
       JPanel boutons = new JPanel();

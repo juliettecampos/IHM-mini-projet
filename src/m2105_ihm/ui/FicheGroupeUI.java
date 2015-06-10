@@ -94,27 +94,29 @@ public class FicheGroupeUI extends javax.swing.JPanel {
                     global.add(new JLabel(" Contact:")); 
                     
                     symbole.setLayout(new GridBagLayout());
+                    
                     GridBagConstraints contrainte1 =new GridBagConstraints();
-                    contrainte1.gridx = 0; contrainte1.gridy = 0; 
-                    contrainte1.gridwidth =1 ; contrainte1.gridheight = 1; 
-                    contrainte1.fill = GridBagConstraints.BOTH ;
-            
+                    
+                            contrainte1.gridx = 0; contrainte1.gridy = 0; 
+                            contrainte1.gridwidth =1 ; contrainte1.gridheight = 1; 
+                            contrainte1.fill = GridBagConstraints.BOTH ;
+
                     
                                    
                     GridBagConstraints contrainte2 =new GridBagConstraints(); 
 
-                    symbole.add(contacts,contrainte2);
+                        symbole.add(contacts,contrainte2);
                   
           
 
             
                 
-                     contacts.setLayout(new GridBagLayout()); 
+                        contacts.setLayout(new GridBagLayout()); 
 
-                     contrainte2.gridx = 0; contrainte2.gridy = 0; 
-                     contrainte2.gridwidth =1 ; contrainte2.gridheight = 1; 
-                     contrainte2.fill = GridBagConstraints.BOTH ;
-                     
+                        contrainte2.gridx = 0; contrainte2.gridy = 0; 
+                        contrainte2.gridwidth =1 ; contrainte2.gridheight = 1; 
+                        contrainte2.fill = GridBagConstraints.BOTH ;
+
                      contrainte1.gridy ++ ;
                     
                     
@@ -200,9 +202,7 @@ public class FicheGroupeUI extends javax.swing.JPanel {
          */
                 
         groupe.setNom(champNomGroupe.getText());
-        
-       
-        
+                
           for (Symbole s : groupe.getSymboles()) {
             groupe.removeSymbole(s);
         }

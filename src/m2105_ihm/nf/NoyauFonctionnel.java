@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import m2105_ihm.ExempleNF;
 
 /**
  *
@@ -165,8 +166,9 @@ public class NoyauFonctionnel {
      * Retourne la liste des evenements
      * @return 
      */
-    public Evenement [] getEvenements() {
-        return evenements.toArray(new Evenement[0]);
+    public ArrayList<Evenement> getEvenements() {
+        return evenements;//.toArray(new Evenement[0]);
+        
     }
         
     /**

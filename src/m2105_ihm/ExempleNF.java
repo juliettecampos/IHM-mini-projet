@@ -8,6 +8,7 @@ package m2105_ihm;
  * @author juliette campos
  */
 import java.awt.Point;
+import java.util.ArrayList;
 import m2105_ihm.nf.*;
 
 /*
@@ -250,7 +251,7 @@ public class ExempleNF {
          * Afficher la liste des évènements
          */       
         Contact [] participants;
-        Evenement [] listeEvenements = nf.getEvenements();
+        ArrayList<Evenement> listeEvenements = nf.getEvenements();
         
         for(Evenement e : listeEvenements) {
             System.out.println("Intitulé : " + e.getIntitule());

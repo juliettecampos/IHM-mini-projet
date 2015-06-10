@@ -34,7 +34,7 @@ public class ListeContacts extends javax.swing.JPanel  {
     private DefaultMutableTreeNode listeRacine;
     private DefaultMutableTreeNode listeNoeudGroupes;
     private DefaultMutableTreeNode listeNoeudContacts;
-        
+            
     private CarnetUI               carnet;
     
     // this is what you want

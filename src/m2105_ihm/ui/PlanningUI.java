@@ -32,7 +32,7 @@ public class PlanningUI extends JPanel {
      */
     private CardLayout fiches;
     private JPanel cardPanel;
-    private Controleur controleur;
+    public Controleur controleur;
     private FicheEvtUI ficheEvt;
     private ListeEvenement listeEvenement;    
     private JButton valider;
