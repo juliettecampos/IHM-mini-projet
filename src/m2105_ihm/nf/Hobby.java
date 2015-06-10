@@ -11,7 +11,9 @@ public enum Hobby implements java.io.Serializable {
     CINEMA("Cin\u00E9ma"),
     LECTURE("Lecture"),
     MUSIQUE("Musique"),
-    SPORT("Sport");
+    SPORT("Sport"),
+    MANGER("Manger");
+    
     
     private final String label;
     

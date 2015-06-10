@@ -13,10 +13,7 @@ public enum Symbole {
     ANIMAL("Animal"),
     MONTAGNE("Montagne"),
     ARBRE("Arbre"),
-    TABLEAU("Tableau"),
-    TEMPLE("Temple"),
-    VOITURE("Voiture"),
-    ETOILE("Etoile");
+    VOITURE("Voiture");
     
     private final String label;
     

@@ -133,47 +133,19 @@ public class BoiteDialogUI {
         }        return res;
     }
 
-    public static ArrayList<Contact> afficherParticipants(JFrame fenetre, Evenement e, Contact[] c) {
-        
-        ArrayList<Contact> res = new ArrayList();
+    public static Contact afficherParticipants(JFrame fenetre, Evenement e, Contact[] c) {
+        Contact res = null;
 
-        if (e != null) {
-            String[] choix = new String[]{"Valider", "Annuler"};
-
-            JPanel panel = new JPanel();
-
-            panel.add(new JLabel("Sélectionner les contacts qui participent à l'événement"));
-
-            JList ListeParticipants = new JList(c);
-            panel.add(ListeParticipants);
-
-            int[] indices = new int[e.getParticipants().length];
-            int j = 0;
-            for (int i = 0; i < c.length; i++) {
-                for (Contact co : e.getParticipants()) {
-                    if (c[i] == co) {
-                        indices[j] = i;
-                        j++;
-                        break;
-                    }
-                }
-            }
-            ListeParticipants.setSelectedIndices(indices);
+            Object selectedValue = JOptionPane.showInputDialog(fenetre,
+                  e.getIntitule(), 
+                  "Choix d'un contact",
+                  JOptionPane.DEFAULT_OPTION, 
+                  null,
+                  c
+                  , c[0]);
             
-            for (Object ct : ListeParticipants.getSelectedValues()) {
-                    res.add((Contact) ct);
-                }
-
-            int b = JOptionPane.showOptionDialog(fenetre, panel, "Modifier les participants", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, choix, choix[1]);
-
-            if (b == 0) {
-                res.removeAll(res);
-                for (Object ct : ListeParticipants.getSelectedValues()) {
-                    res.add((Contact) ct);
-                }
-            }
-        }
-
+            res = (Contact) selectedValue;
+            
         return res;
     }
     

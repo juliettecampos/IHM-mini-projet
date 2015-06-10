@@ -238,7 +238,7 @@ public class FenetreUI extends JFrame {
      */
     public void afficher() {
         setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        setSize(600, 700);
+        setSize(1000, 700);
         setVisible(true);                        
     }
     

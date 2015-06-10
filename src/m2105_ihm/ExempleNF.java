@@ -132,8 +132,7 @@ public class ExempleNF {
 
         /* symboles du groupe */ 
         g.addSymbole(Symbole.FLEUR);
-        g.addSymbole(Symbole.ETOILE);
-        g.addSymbole(Symbole.TABLEAU);
+
         
         /* 
          * Forme géometrique pour le logo du groupe (liste de points)

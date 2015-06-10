@@ -17,16 +17,7 @@ import m2105_ihm.nf.*;
 public class FicheContactUI extends JPanel {
 
     private CarnetUI         carnet;
-    private JPanel           panelInfo;
-    
     private Integer[]        jours;
-    private JPanel           paneldate;
-    private JPanel           paneldateLabel;
-    private JPanel           paneldatechamp;
-    
-    
-    private JPanel           panelPreferences;
-    
     private JComboBox        listeJours;
     private JComboBox        listeMois;
     private JComboBox        listeAnnees;
@@ -45,7 +36,7 @@ public class FicheContactUI extends JPanel {
     
     private JButton          valider;
     private JButton          annuler;
-    
+    private JButton          modifier;
     
     public Integer[] listeJour(){
         Integer[] j = new Integer[31];
@@ -64,7 +55,7 @@ public class FicheContactUI extends JPanel {
         
         
         this.carnet      = carnet;
-              
+    
         initUIComponents();
         initListeners();
     }
@@ -78,117 +69,97 @@ public class FicheContactUI extends JPanel {
         /*
          * Ajoute dans l'IHM un champ pour la saisie/Affichage du nom
          */  
-        panelInfo = new JPanel();
-        paneldate = new JPanel();
-        paneldateLabel = new JPanel();
-        paneldatechamp = new JPanel();
-        panelPreferences = new JPanel();
+        JPanel identite = new JPanel();
+        this.add(identite);
+        JPanel date = new JPanel();
+        JPanel hobby= new JPanel();
+        JPanel boutons = new JPanel();
+       
+       
         
-        panelInfo.setLayout(new GridBagLayout());
-        paneldate.setLayout(new BorderLayout());
-        panelPreferences.setLayout(new GridBagLayout());
-        GridBagConstraints contraintes = new GridBagConstraints();
-        contraintes.ipady=5;
-        contraintes.gridx=1;
-        //panel info
-        labelNom = new JLabel("Nom");
-        champNom = new JTextField(30);
+//        panelPreferences.setLayout(new GridBagLayout());
+//        GridBagConstraints contraintes = new GridBagConstraints();
+//     
+//        contraintes.ipady=5;
+//        contraintes.gridx=1;
+//        
+        
+      
+        identite.setLayout(new GridLayout(0,2));
+        
+            
+        identite.add(labelNom = new JLabel("Nom : "));
+        identite.add(champNom = new JTextField(30));
         
         
-        labelPrenom = new JLabel("Prénom");
-        champPrenom = new JTextField(30);
+        identite.add(labelPrenom = new JLabel("Prénom : "));
+        identite.add(champPrenom = new JTextField(30));
         
-        panelInfo.add(labelNom,contraintes);
-        panelInfo.add(champNom,contraintes);
-        panelInfo.add(labelPrenom,contraintes);
-        panelInfo.add(champPrenom,contraintes);
         
-        //panel naissance
+        
+        
+       
+        identite.add(new JLabel("Date de naissance :"));
+        date.setLayout(new GridLayout(0,3));
+        identite.add(date);
+        
         jours = listeJour();
-        listeJours = new JComboBox(jours);
+        date.add(listeJours = new JComboBox(jours));
         
        
         Mois[] mois = Mois.values();
+        date.add(listeMois = new JComboBox(mois));
         
-        listeMois = new JComboBox(mois);
         
-        
-       String[] annee = new String[96];
+       String[] annee = new String[150];
        
-       for (int i=1920;i<=2015;i++) {
-           annee[i-1920] = Integer.toString(i);
+       for (int i=1865;i<2015;i++) {
+           annee[i-1865] = Integer.toString(i);
        }
-       listeAnnees = new JComboBox(annee);
+       date.add(listeAnnees = new JComboBox(annee));
        
-       paneldateLabel.add(new JLabel("Jour"),BorderLayout.EAST);
-       paneldateLabel.add(new JLabel("Mois"),BorderLayout.CENTER);
-       paneldateLabel.add(new JLabel("Annee"),BorderLayout.WEST);
-       
-       paneldatechamp.add(listeJours,BorderLayout.EAST);
-       paneldatechamp.add(listeMois,BorderLayout.CENTER);
-       paneldatechamp.add(listeAnnees,BorderLayout.WEST);
-       
-       
-       
+      
         
-       //panel pref
-        champTelephone = new JTextField(30);
+        identite.add(new JLabel("Telephone :"));
+        identite.add(champTelephone = new JTextField(30));
         
-        champMail = new JTextField(30);
         
+        identite.add(new JLabel("Mail : "));
+        identite.add(champMail = new JTextField(30));
+    
+        identite.add(new JLabel("Region : "));
         Region[] reg = Region.values();
-        listeRegions = new JComboBox(reg);
-        
+        identite.add(listeRegions = new JComboBox(reg));
        
+        hobby.setLayout(new GridLayout(0,3));
+        identite.add(hobby);
         
-        
-        panelPreferences.add(new JLabel("Telephone"),contraintes);
-        panelPreferences.add(champTelephone,contraintes);
-        
-        panelPreferences.add(new JLabel("Mail"),contraintes);
-        panelPreferences.add(champMail,contraintes);
-        
-        panelPreferences.add(new JLabel("Region"),contraintes);
-        panelPreferences.add(listeRegions,contraintes);
-        
-        
+        identite.add(new JLabel("Hobby : ")); 
         hashHobby = new HashMap<Hobby,JCheckBox>();
         
         for (Hobby h : Hobby.values()) {
             hashHobby.put(h, new JCheckBox(h.toString()));
             
-            panelPreferences.add(hashHobby.get(h),contraintes);
+            hobby.add(hashHobby.get(h));
             
         }
-        
-        //MEP
-        this.setLayout(new GridBagLayout());
-        GridBagConstraints contrainte = new GridBagConstraints();
-        contrainte.fill = GridBagConstraints.HORIZONTAL;
-        contrainte.weightx=2;
-        contrainte.ipady=50;
-        contrainte.gridx=2;
-        this.add(panelInfo, contrainte);
-        contrainte.ipady=20;
-        this.add(paneldate, contrainte);
-        contrainte.ipady=50;
-        this.add(panelPreferences, contrainte);
-        champMail.setHorizontalAlignment(JTextField.CENTER);
-        champTelephone.setHorizontalAlignment(JTextField.CENTER);
-        champNom.setHorizontalAlignment(JTextField.CENTER);
-        champPrenom.setHorizontalAlignment(JTextField.CENTER);
+        identite.add(hobby);
 
-        paneldate.add(paneldateLabel,BorderLayout.NORTH);
-        paneldate.add(paneldatechamp,BorderLayout.CENTER);
-        
-        valider = new JButton("MODIFIER");
-        panelPreferences.add(valider,contraintes);
+       
+        valider = new JButton("APPLIQUER");
+        boutons.add(valider);
         
         annuler = new JButton("ANNULER");
-        panelPreferences.add(annuler,contraintes);
+        boutons.add(annuler);
         
-        
-        
+        identite.add(new JLabel(""));
+        identite.add(new JLabel(""));
+        identite.add(new JLabel(""));
+        identite.add(new JLabel(""));
+        identite.add(new JLabel(""));
+       
+        identite.add(boutons);
+       
         
         
     }
@@ -245,7 +216,7 @@ public class FicheContactUI extends JPanel {
         int jour = listeJours.getSelectedIndex()+1;
         Mois mois = (Mois) listeMois.getSelectedItem();
         
-        int annee = listeAnnees.getSelectedIndex() +1920;
+        int annee = listeAnnees.getSelectedIndex() +1865;
         
         contact.setDateNaissance(jour,mois, annee);
         
@@ -292,5 +263,8 @@ public class FicheContactUI extends JPanel {
             
             
         });
+        
+        
+        
     }    
 }

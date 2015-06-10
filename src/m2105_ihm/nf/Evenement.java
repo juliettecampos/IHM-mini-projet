@@ -41,7 +41,8 @@ public class Evenement implements java.io.Serializable {
      * Retourne l'intitulé de l'évènement
      * @return 
      */
-    public String getIntitule() { return intitule; }
+    public String getIntitule() { 
+     return intitule; }
 
     /**
      * Affecte l'intitulé de l'évènement
@@ -141,4 +142,13 @@ public class Evenement implements java.io.Serializable {
     public String toString() {
         return dateJour + "/" + (dateMois.ordinal() + 1) + "/" + dateAnnee + " : " + intitule;
     }
+    
+    
+     public Integer[] listeJour(){
+        Integer[] j = new Integer[31];
+        for(int i=0; i<31; i++){
+            j[i]=i+1;
+        }
+        return j;}
+     
 }

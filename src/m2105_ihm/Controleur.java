@@ -89,9 +89,7 @@ public class Controleur {
 
         /* symboles du groupe */ 
         g.addSymbole(Symbole.FLEUR);
-        g.addSymbole(Symbole.ETOILE);
-        g.addSymbole(Symbole.TABLEAU);
-        
+    
         /* 
          * Forme géometrique pour le logo du groupe (liste de points)
          * Pour l'exemple : un carré
@@ -164,6 +162,7 @@ public class Controleur {
     public void supprimerEvenement() {
        
        /** Projet **/
+        
        Evenement e = planningUI.getSelectedEvt();
         if (BoiteDialogUI.afficherConfirmation(fenetre, e)) {
             nf.removeEvenement(e);
@@ -177,6 +176,15 @@ public class Controleur {
     
        /** Projet **/
         Evenement e = planningUI.getSelectedEvt();
+        Contact c = BoiteDialogUI.afficherParticipants(fenetre,e, nf.getContacts());
+        if (c != null){
+            e.getParticipants();
+        }
+//           Contact addContactdsGroupe = carnetUI.getSelectedContact();
+//        GroupeContacts groupe = BoiteDialogUI.afficherChoixMembreContact(fenetre, "Ajouter le contact dans le groupe :", nf.getGroupes());
+//        if (groupe != null){
+//            groupe.addContact(addContactdsGroupe);
+//        }
     }
 
     /**

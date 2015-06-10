@@ -40,9 +40,9 @@ public class CarnetUI extends JPanel {
         super();
         
         this.controleur = controleur;
-        
+        setBackground(Color.white);
         initUIComponents(); 
-        setBackground(Color.red);
+       
     }
     
     /**

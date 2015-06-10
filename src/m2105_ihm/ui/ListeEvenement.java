@@ -36,7 +36,7 @@ public class ListeEvenement extends javax.swing.JPanel  {
     private DefaultMutableTreeNode listeNoeudEvenement;
 
     private PlanningUI planning;    
-    private CarnetUI carnet;
+    
     
     // this is what you want
     private static class MyTreeCellRenderer extends DefaultTreeCellRenderer {
@@ -118,10 +118,10 @@ public class ListeEvenement extends javax.swing.JPanel  {
                     selected = newSelected;
                     if (((NodeData) data).id instanceof Contact) {                
                         /* Affiche le contact sélectionné */
-                        carnet.setSelectedItem(((NodeData) data).id);
+                        planning.setSelectedItem(((NodeData) data).id);
                     } else if (((NodeData) data).id instanceof GroupeContacts) {
                         /* Affiche le groupe de contacts sélectionné */
-                        carnet.setSelectedItem(((NodeData) data).id);
+                        planning.setSelectedItem(((NodeData) data).id);
                     }
                 } else {
                     listeEvenement.setSelectionPath(selected);
@@ -261,7 +261,7 @@ public class ListeEvenement extends javax.swing.JPanel  {
            highlightSelected(node);           
         }
         
-        carnet.setSelectedItem(selectedItem);
+        planning.setSelectedItem(selectedItem);
     }
     
     

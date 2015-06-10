@@ -22,16 +22,14 @@ public class FicheGroupeUI extends javax.swing.JPanel {
     /*
      * Composants graphiques constituants l'interface
      */
-    private CarnetUI carnet;
-    private ZoneDessinUI zoneDessin;
-
-    private JTextField champNomGroupe;
-    private JList ListeSymbole; 
-    private DefaultTableModel tableContact;
-    
-    private JButton erase;
-    private JButton modifier;
-    private JButton annuler;
+    private CarnetUI             carnet;
+    private JTextField           champNomGroupe;
+    private JList                ListeSymbole; 
+    private DefaultTableModel    model;
+    private HashMap<Symbole,JCheckBox> hashSymbole;
+    private JButton              erase;
+    private JButton              modifier;
+    private JButton              annuler;
 
     /**
      * Creates new form CarnetUI
@@ -53,39 +51,102 @@ public class FicheGroupeUI extends javax.swing.JPanel {
         /**
          * TP 2 : à compléter *
          */
-        zoneDessin = new ZoneDessinUI();
-        this.add(zoneDessin);
-
-        erase = new javax.swing.JButton("Effacer le dessin");
-        this.add(erase);
-
-        this.add(new JLabel("Nom du groupe :"));
-        champNomGroupe = new JTextField(30);
-        this.add(champNomGroupe);
-
-        this.add(new JLabel("Liste des contacts du groupe :"));
-
-        String[] colonnes = {"Nom", "Prénom"};
-        tableContact = new DefaultTableModel();
-        tableContact.setColumnIdentifiers(colonnes); // intitulé des colonnes 
-
-        JTable table = new JTable(tableContact);
-        add(table.getTableHeader()); // Nom des colonnes 
-        add(table);                  // Valeurs en ligne 
-
-        this.add(new JLabel("Liste des symboles du groupe :"));
-        ListeSymbole = new JList(Symbole.values()); 
-        this.add(ListeSymbole);
-
-        modifier = new javax.swing.JButton("MODIFIER");
-        this.add(modifier);
         
-        annuler = new javax.swing.JButton("ANNULER");
-        this.add(annuler);
+       
+      
+        this.setLayout(new BorderLayout());
+        
+        JPanel nom = new JPanel();
+        JPanel global = new JPanel();
+        JPanel symbole = new JPanel();
+        JPanel symboles = new JPanel();
+        JPanel contacts = new JPanel();
+        JPanel boutons = new JPanel();
+        
+        
+        
+           
+        
+            global.setLayout(new GridLayout(0,2)); 
+            this.add(global,BorderLayout.NORTH);
+            
+            
+           
+            nom.add(champNomGroupe = new JTextField(10));
+            global.add(nom);
+            global.add(new JLabel(""));
+           
+              
+            
+            global.add(new JLabel("Symboles :"));
+            
+            hashSymbole = new HashMap<Symbole,JCheckBox>();
+               for (Symbole s : Symbole.values()) {
+                   
+                    hashSymbole.put(s, new JCheckBox(s.toString()));
+                     symboles.add(hashSymbole.get(s));
+            
+                 }
+              global.add(symboles);
+          
+                   
 
+                    global.add(new JLabel(" Contact:")); 
+                    
+                    symbole.setLayout(new GridBagLayout());
+                    GridBagConstraints contrainte1 =new GridBagConstraints();
+                    contrainte1.gridx = 0; contrainte1.gridy = 0; 
+                    contrainte1.gridwidth =1 ; contrainte1.gridheight = 1; 
+                    contrainte1.fill = GridBagConstraints.BOTH ;
+            
+                    
+                                   
+                    GridBagConstraints contrainte2 =new GridBagConstraints(); 
+
+                    symbole.add(contacts,contrainte2);
+                  
+          
+
+            
+                
+                     contacts.setLayout(new GridBagLayout()); 
+
+                     contrainte2.gridx = 0; contrainte2.gridy = 0; 
+                     contrainte2.gridwidth =1 ; contrainte2.gridheight = 1; 
+                     contrainte2.fill = GridBagConstraints.BOTH ;
+                     
+                     contrainte1.gridy ++ ;
+                    
+                    
+                     String [] colonnes =  { "Nom", "Prenom" }; 
+                     model = new DefaultTableModel(); 
+                     model.setColumnIdentifiers(colonnes);
+
+                     JTable table = new JTable(model); 
+
+                     contrainte2.gridy ++ ;
+                     contrainte2.gridx ++;
+                     contacts.add(table.getTableHeader(), contrainte2); 
+                     contrainte2.gridy ++ ;
+                     contacts.add(table,  contrainte2);
+                     
+                 global.add(symbole);
+
+        
+        modifier = new javax.swing.JButton("APPLIQUER");
+        boutons.add(modifier);
+
+        annuler = new javax.swing.JButton("ANNULER");
+        boutons.add(annuler);
+        global.add(new JLabel(""));
+        global.add(new JLabel(""));
+        global.add(new JLabel(""));
+        global.add(new JLabel(""));
+        global.add(new JLabel(""));
+        global.add(boutons);     
     }
-  
-    
+
+
     /**
      * Affecte des valeurs au formulaire de fiche groupe de contacts
      * @param groupe groupe de contacts
@@ -98,18 +159,25 @@ public class FicheGroupeUI extends javax.swing.JPanel {
         
         champNomGroupe.setText(groupe.getNom());
         
-        int indices[] = new int[groupe.getSymboles().length];
-        for (int i = 0; i < groupe.getSymboles().length; i++) indices[i] = groupe.getSymboles()[i].ordinal();
-        ListeSymbole.setSelectedIndices(indices);
+         for(JCheckBox J : hashSymbole.values()) {
+            J.setSelected(false);
+        }
+        for (Symbole s : groupe.getSymboles()) {
+            hashSymbole.get(s).setSelected(true);
+        }
         
-        tableContact.setRowCount(0);
+//        
+//        int indices[] = new int[groupe.getSymboles().length];
+//        for (int i = 0; i < groupe.getSymboles().length; i++) indices[i] = groupe.getSymboles()[i].ordinal();
+//        ListeSymbole.setSelectedIndices(indices);
+        
+        model.setRowCount(0);
         for (Contact c : groupe.getContacts()) {
             String tmp[] = {c.getNom(),c.getPrenom()};
-            tableContact.addRow(tmp);
+            model.addRow(tmp);
         } 
         
-        zoneDessin.effacer();
-        zoneDessin.setPoints(groupe.getPoints());
+        
                 
         return true;
             
@@ -133,15 +201,24 @@ public class FicheGroupeUI extends javax.swing.JPanel {
                 
         groupe.setNom(champNomGroupe.getText());
         
-        for (Symbole s : Symbole.values()) {
+       
+        
+          for (Symbole s : groupe.getSymboles()) {
             groupe.removeSymbole(s);
         }
+        for (Symbole s : hashSymbole.keySet()) {
+            if (hashSymbole.get(s).isSelected()){
+            groupe.addSymbole(s);
+            }
         
-        for (Object s : ListeSymbole.getSelectedValues()) {
-            groupe.addSymbole((Symbole) s);
+        
+         
+      
         }
-       
-        groupe.setPoints(zoneDessin.getPoints());
+        
+        
+        
+
         
         return true;
     }
@@ -153,15 +230,6 @@ public class FicheGroupeUI extends javax.swing.JPanel {
         /*
          * Réagit aux évènements produits par le bouton effacer
          */ 
-         erase.addActionListener(new ActionListener() {
-             @Override
-            public void actionPerformed(ActionEvent e) {
-               
-                zoneDessin.effacer();
-               
-            }
-        });
-        
        
         annuler.addActionListener(new ActionListener() {
 
