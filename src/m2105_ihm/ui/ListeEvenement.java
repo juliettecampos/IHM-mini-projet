@@ -135,7 +135,7 @@ public class ListeEvenement extends javax.swing.JPanel  {
         treeUI.setExpandedIcon(null);
 
         listeDefilante = new JScrollPane();
-//	listeDefilante.getViewport().add(listeDefilante);
+	listeDefilante.getViewport().add(listeEvenement);
         
         setLayout(new BorderLayout());
         add(listeDefilante, BorderLayout.CENTER);        
@@ -145,11 +145,20 @@ public class ListeEvenement extends javax.swing.JPanel  {
      * Crée et initialise la structure arborescente pour le contenu du carnet
      */
     private void initListe() {        
-        /* Noeuds élémentaires de l'arbre de contacts */
+        /* Noeuds élémentaires de l'arbre d'evenement  */
         listeRacine = new DefaultMutableTreeNode("Planning");
         listeNoeudEvenement = new DefaultMutableTreeNode("Evenement");
-        listeRacine.add(listeNoeudEvenement);        
-    }
+        listeRacine.add(listeNoeudEvenement);   
+    }   
+//        private void initListe() {        
+//        /* Noeuds élémentaires de l'arbre de contacts */
+//        listeRacine = new DefaultMutableTreeNode("Contacts et groupes de contacts");
+//        listeNoeudGroupes = new DefaultMutableTreeNode("Groupes");
+//        listeNoeudContacts = new DefaultMutableTreeNode("Contacts");
+//        listeRacine.add(listeNoeudContacts);
+//        listeRacine.add(listeNoeudGroupes);        
+//    
+    
 
   
 
